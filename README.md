@@ -3,11 +3,13 @@ UserAgentInterceptor, interceptor for [OkHttp3](https://github.com/square/okhttp
 
 [![](https://jitpack.io/v/danielceinos/User-Agent-Interceptor.svg)](https://jitpack.io/#danielceinos/User-Agent-Interceptor)
 
-This interceptor adds a usefull user agent value.
+This interceptor adds a useful User Agent header value.
 
 Following this format:
 
 `User-Agent:Your awesome app name / 1.0.1(2830803); StandAloneInstall; (Google; Android SDK built for x86_64; SDK 28; Android 9)`
+
+AppName / VersionName(VersionCode); Installer package; (manufacturer; model; SDK version; Android version code)
 
 
 Usage
