@@ -1,4 +1,4 @@
-#User Agent Interceptor
+# UserAgentInterceptor, interceptor for OkHttp3 to add User-Agent header
 
 This interceptor adds a usefull user agent value.
 
@@ -7,7 +7,13 @@ Following this format:
 `User-Agent:Your awesome app name / 1.0.1(2830803); StandAloneInstall; (Google; Android SDK built for x86_64; SDK 28; Android 9)`
 
 
-## Install
+# Usage
+
+```kotlin
+	val client = OkHttpClient.Builder()
+	client.addInterceptor(UserAgentInterceptor(context))
+```
+# Install
 
 Last release:
 
