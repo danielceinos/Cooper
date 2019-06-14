@@ -1,4 +1,5 @@
-# UserAgentInterceptor, interceptor for OkHttp3 to add User-Agent header
+UserAgentInterceptor, interceptor for [OkHttp3](https://github.com/square/okhttp) to add User-Agent header
+[![](https://jitpack.io/v/danielceinos/User-Agent-Interceptor.svg)](https://jitpack.io/#danielceinos/User-Agent-Interceptor)
 
 This interceptor adds a usefull user agent value.
 
@@ -13,6 +14,7 @@ Following this format:
 	val client = OkHttpClient.Builder()
 	client.addInterceptor(UserAgentInterceptor(context))
 ```
+
 # Install
 
 Last release:
