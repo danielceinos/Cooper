@@ -22,30 +22,30 @@ class UserAgentInterceptor(private val context: Context) : Interceptor {
     private fun buildUserAgent(context: Context): String {
         with(context.packageManager) {
             val versionName = try {
-                this.getPackageInfo(context.packageName, 0).versionName
+                getPackageInfo(context.packageName, 0).versionName
             } catch (e: PackageManager.NameNotFoundException) {
                 "nameNotFound"
             }
             val versionCode = try {
-                this.getPackageInfo(context.packageName, 0).versionCode.toString()
+                getPackageInfo(context.packageName, 0).versionCode.toString()
             } catch (e: PackageManager.NameNotFoundException) {
                 "versionCodeNotFound"
             }
 
-            val appName = try {
-                this.getApplicationInfo(context.packageName, 0).name
-            } catch (e: PackageManager.NameNotFoundException) {
-                "appNameNotFount"
-            }
+            val applicationInfo = context.applicationInfo
+            val stringId = applicationInfo.labelRes
+            val appName =
+                if (stringId == 0) applicationInfo.nonLocalizedLabel.toString()
+                else context.getString(stringId)
 
             val manufacturer = Build.MANUFACTURER
             val model = Build.MODEL
             val version = Build.VERSION.SDK_INT
             val versionRelease = Build.VERSION.RELEASE
 
-            val installerName = this.getInstallerPackageName(context.packageName) ?: "StandAloneInstall"
+            val installerName = getInstallerPackageName(context.packageName) ?: "StandAloneInstall"
 
-            return "$appName / $versionName($versionCode); $installerName; ($manufacturer; $model; $version; $versionRelease)"
+            return "$appName / $versionName($versionCode); $installerName; ($manufacturer; $model; SDK $version; Android $versionRelease)"
         }
     }
 }
