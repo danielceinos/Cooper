@@ -2,6 +2,7 @@ package com.danielceinos.useragent
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -19,27 +20,32 @@ class UserAgentInterceptor(private val context: Context) : Interceptor {
     }
 
     private fun buildUserAgent(context: Context): String {
-        val versionName = try {
-            context.packageManager.getPackageInfo(this.context.packageName, 0).versionName
-        } catch (e: PackageManager.NameNotFoundException) {
-            "nameNotFound"
+        with(context.packageManager) {
+            val versionName = try {
+                this.getPackageInfo(context.packageName, 0).versionName
+            } catch (e: PackageManager.NameNotFoundException) {
+                "nameNotFound"
+            }
+            val versionCode = try {
+                this.getPackageInfo(context.packageName, 0).versionCode.toString()
+            } catch (e: PackageManager.NameNotFoundException) {
+                "versionCodeNotFound"
+            }
+
+            val appName = try {
+                this.getApplicationInfo(context.packageName, 0).name
+            } catch (e: PackageManager.NameNotFoundException) {
+                "appNameNotFount"
+            }
+
+            val manufacturer = Build.MANUFACTURER
+            val model = Build.MODEL
+            val version = Build.VERSION.SDK_INT
+            val versionRelease = Build.VERSION.RELEASE
+
+            val installerName = this.getInstallerPackageName(context.packageName) ?: "StandAloneInstall"
+
+            return "$appName / $versionName($versionCode); $installerName; ($manufacturer; $model; $version; $versionRelease)"
         }
-        val versionCode = try {
-            context.packageManager.getPackageInfo(this.context.packageName, 0).versionCode.toString()
-        } catch (e: PackageManager.NameNotFoundException) {
-            "versionCodeNotFound"
-        }
-
-        val appName = try {
-            context.packageManager.getApplicationInfo(this.context.packageName, 0)
-        } catch (e: PackageManager.NameNotFoundException) {
-            "appNameNotFount"
-        }
-
-        val installerName = context.packageManager.getInstallerPackageName(context.packageName)
-
-        val agent = System.getProperty("http.agent")
-
-        return "$appName / $versionName($versionCode); $installerName; $agent"
     }
 }
