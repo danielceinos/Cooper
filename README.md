@@ -1,4 +1,4 @@
-UserAgentInterceptor, interceptor for [OkHttp3](https://github.com/square/okhttp) to add User-Agent header
+Cooper, interceptor for [OkHttp3](https://github.com/square/okhttp) to add bran new shine User-Agent header
 --------
 
 [![](https://jitpack.io/v/danielceinos/User-Agent-Interceptor.svg)](https://jitpack.io/#danielceinos/User-Agent-Interceptor)
