@@ -1,4 +1,4 @@
-package com.danielceinos.useragent
+package com.danielceinos.cooper
 
 import android.content.Context
 import android.content.pm.PackageManager
@@ -7,7 +7,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 
 
-class UserAgentInterceptor(private val context: Context) : Interceptor {
+class CooperInterceptor(private val context: Context) : Interceptor {
 
     private val userAgent: String by lazy {
         buildUserAgent(context)
