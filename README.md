@@ -16,8 +16,8 @@ Usage
 --------
 
 ```kotlin
-	val client = OkHttpClient.Builder()
-	client.addInterceptor(UserAgentInterceptor(context))
+val client = OkHttpClient.Builder()
+client.addInterceptor(CooperInterceptor(context))
 ```
 Install
 --------
@@ -42,6 +42,6 @@ Add the dependency
 
 ```groovy
 dependencies {
-	        implementation 'com.github.danielceinos:User-Agent-Interceptor:X.Y.Z'
+	        implementation 'com.github.danielceinos:Cooper:X.Y.Z'
 }
 ```
