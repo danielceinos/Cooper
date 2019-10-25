@@ -45,7 +45,17 @@ class CooperInterceptor(private val context: Context) : Interceptor {
 
             val installerName = getInstallerPackageName(context.packageName) ?: "StandAloneInstall"
 
-            return "$appName / $versionName($versionCode); $installerName; ($manufacturer; $model; SDK $version; Android $versionRelease)"
+            val userAgentValue =
+                "$appName / $versionName($versionCode); $installerName; ($manufacturer; $model; SDK $version; Android $versionRelease)"
+
+            return String(userAgentValue.toCharArray().map { c ->
+                if (c <= '\u001f' && c != '\t' || c >= '\u007f') {
+                    '_'
+                } else {
+                    c
+                }
+            }.toCharArray())
         }
     }
 }
+
