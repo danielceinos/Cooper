@@ -7,7 +7,10 @@ import okhttp3.Interceptor
 import okhttp3.Response
 
 
-class CooperInterceptor(private val context: Context) : Interceptor {
+class CooperInterceptor(
+    private val context: Context,
+    private val overrideAppName: String? = null
+) : Interceptor {
 
     private val userAgent: String by lazy {
         buildUserAgent(context)
@@ -35,7 +38,7 @@ class CooperInterceptor(private val context: Context) : Interceptor {
             val applicationInfo = context.applicationInfo
             val stringId = applicationInfo.labelRes
             val appName =
-                if (stringId == 0) applicationInfo.nonLocalizedLabel.toString()
+                overrideAppName ?: if (stringId == 0) applicationInfo.nonLocalizedLabel.toString()
                 else context.getString(stringId)
 
             val manufacturer = Build.MANUFACTURER
@@ -45,16 +48,7 @@ class CooperInterceptor(private val context: Context) : Interceptor {
 
             val installerName = getInstallerPackageName(context.packageName) ?: "StandAloneInstall"
 
-            val userAgentValue =
-                "$appName / $versionName($versionCode); $installerName; ($manufacturer; $model; SDK $version; Android $versionRelease)"
-
-            return String(userAgentValue.toCharArray().map { c ->
-                if (c <= '\u001f' && c != '\t' || c >= '\u007f') {
-                    '_'
-                } else {
-                    c
-                }
-            }.toCharArray())
+            return "$appName / $versionName($versionCode); $installerName; ($manufacturer; $model; SDK $version; Android $versionRelease)"
         }
     }
 }

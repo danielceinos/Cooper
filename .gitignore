@@ -202,3 +202,7 @@ gradle-app.setting
 .idea/sonarlint/
 
 \.idea/render\.experimental\.xml
+
+packages.gradle
+
+github.properties
